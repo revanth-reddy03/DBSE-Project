@@ -1,0 +1,30 @@
+{
+  "name": "vehicle-service-backend",
+  "version": "1.0.0",
+  "description": "Backend for The Vehicle Service Booking and Tracking System - DBSE Course (25CS1302E)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "init-db": "node src/db/initDb.js",
+    "view-db": "node src/db/viewDb.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.12.0",
+    "nodemailer": "^6.9.16"
+  },
+  "keywords": [
+    "vehicle-service",
+    "mysql",
+    "express",
+    "jwt",
+    "dbse"
+  ],
+  "author": "Revanth Reddy & Subhash",
+  "license": "ISC"
+}

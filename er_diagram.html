@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entity-Relationship Diagram | Vehicle Service Booking & Tracking System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #0b1120;
+      color: #f8fafc;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .header {
+      max-width: 1400px;
+      margin: 0 auto 2rem;
+      padding: 1.5rem 2rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      display: flex;
+      justifyContent: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .badge {
+      background: rgba(37, 99, 235, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .diagram-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      overflow-x: auto;
+    }
+    .btn {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:hover {
+      background: #3b82f6;
+    }
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
+      }
+      .header button { display: none; }
+      .diagram-container {
+        background: white !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <span class="badge">DATABASE SYSTEMS ENGINEERING (25CS1302E)</span>
+      <h1 style="font-size: 1.5rem; margin-top: 6px; font-weight: 800;">Entity-Relationship (ER) Diagram</h1>
+      <p style="font-size: 0.85rem; color: #94a3b8;">The Vehicle Service Booking & Tracking System • Database: vehicle_service_db</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+      <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </div>
+
+  <div class="diagram-container">
+    <div class="mermaid">
+erDiagram
+    USERS ||--o{ VEHICLES : "owns"
+    USERS ||--o{ BOOKINGS : "places"
+    USERS ||--o{ JOB_ASSIGNMENTS : "assigned as mechanic"
+    USERS ||--o{ SERVICE_HISTORY_LOGS : "logs milestone"
+    USERS ||--o{ INVOICES : "billed to"
+    USERS ||--o{ NOTIFICATIONS : "receives"
+
+    SERVICE_CENTERS ||--o{ SERVICE_SLOTS : "schedules"
+    SERVICE_CENTERS ||--o{ BOOKINGS : "hosts"
+
+    VEHICLES ||--o{ BOOKINGS : "services"
+
+    SERVICE_SLOTS ||--o{ BOOKINGS : "reserves slot"
+
+    BOOKINGS ||--o{ BOOKING_SERVICES : "contains"
+    SERVICE_TYPES ||--o{ BOOKING_SERVICES : "mapped in"
+
+    BOOKINGS ||--o{ JOB_ASSIGNMENTS : "dispatched to"
+    BOOKINGS ||--o{ SERVICE_HISTORY_LOGS : "has audit trail"
+    BOOKINGS ||--|| INVOICES : "generates bill"
+    BOOKINGS ||--o{ NOTIFICATIONS : "triggers alert"
+
+    INVOICES ||--o{ INVOICE_ITEMS : "has line items"
+
+    USERS {
+        int id PK
+        string name
+        string email UK
+        string password_hash
+        enum role
+        string phone
+        timestamp created_at
+    }
+
+    SERVICE_CENTERS {
+        int id PK
+        string name
+        string code UK
+        string address
+        string city
+        int capacity_per_slot
+        boolean is_active
+    }
+
+    VEHICLES {
+        int id PK
+        int user_id FK
+        string reg_no UK
+        string make
+        string model
+        int year
+        enum fuel_type
+        int mileage
+        string color
+    }
+
+    SERVICE_TYPES {
+        int id PK
+        string name
+        enum category
+        decimal estimated_hours
+        decimal base_price
+        boolean is_active
+    }
+
+    SERVICE_SLOTS {
+        int id PK
+        int service_center_id FK
+        date slot_date
+        string slot_time
+        int max_capacity
+        int booked_count
+    }
+
+    BOOKINGS {
+        int id PK
+        string booking_code UK
+        int user_id FK
+        int vehicle_id FK
+        int service_center_id FK
+        int slot_id FK
+        date booking_date
+        string slot_time
+        enum status
+        decimal total_amount
+    }
+
+    BOOKING_SERVICES {
+        int booking_id PK, FK
+        int service_type_id PK, FK
+        decimal price
+    }
+
+    JOB_ASSIGNMENTS {
+        int id PK
+        int booking_id FK
+        int mechanic_user_id FK
+        enum status
+        timestamp assigned_at
+    }
+
+    SERVICE_HISTORY_LOGS {
+        int id PK
+        int booking_id FK
+        string status_from
+        string status_to
+        int changed_by_user_id FK
+        text comments
+        timestamp created_at
+    }
+
+    INVOICES {
+        int id PK
+        string invoice_number UK
+        int booking_id FK
+        int user_id FK
+        decimal subtotal
+        decimal tax
+        decimal grand_total
+        enum payment_status
+    }
+
+    INVOICE_ITEMS {
+        int id PK
+        int invoice_id FK
+        string description
+        enum item_type
+        int quantity
+        decimal unit_price
+        decimal total_price
+    }
+
+    NOTIFICATIONS {
+        int id PK
+        int user_id FK
+        int booking_id FK
+        enum channel
+        string title
+        enum status
+    }
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#0f172a',
+        primaryColor: '#2563eb',
+        primaryTextColor: '#f8fafc',
+        primaryBorderColor: '#3b82f6',
+        lineColor: '#60a5fa',
+        secondaryColor: '#1e293b',
+        tertiaryColor: '#0b1120'
+      }
+    });
+  </script>
+</body>
+</html>

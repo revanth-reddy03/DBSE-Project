@@ -1,0 +1,15 @@
+{
+  "name": "vehicle-service-booking-and-tracking-system",
+  "version": "1.0.0",
+  "description": "Vehicle Service Booking & Tracking System - DBSE Course (25CS1302E)",
+  "scripts": {
+    "init-db": "cd backend && npm run init-db",
+    "view-db": "cd backend && npm run view-db",
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
