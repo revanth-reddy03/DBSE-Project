@@ -60,8 +60,8 @@ export default function App() {
   const handleQuickSwitchRole = async (targetRole) => {
     const creds = {
       customer: { email: 'revanth@vehicleservice.com', password: 'customer123' },
-      staff: { email: 'suresh@vehicleservice.com', password: 'staff123' },
-      admin: { email: 'admin@vehicleservice.com', password: 'admin123' }
+      staff: { email: 'vikram@apexautohub.com', password: 'vikram123' },
+      admin: { email: 'rajesh@apexautohub.com', password: 'rajesh123' }
     };
 
     const target = creds[targetRole];

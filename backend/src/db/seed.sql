@@ -18,9 +18,9 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- 1. Insert Users (Admin, Staff / Mechanics, Customers)
 INSERT INTO `users` (`id`, `name`, `email`, `password_hash`, `role`, `phone`) VALUES
-(1, 'Central Administrator', 'admin@vehicleservice.com', '$2a$10$7XR7nxGwYjbYiwvUtN8d8uLMF0MZc8dyjxmILNI6Rr1CQd7pbhcIm', 'admin', '+91 98765 43210'),
-(2, 'Suresh Kumar (Lead Mechanic)', 'suresh@vehicleservice.com', '$2a$10$RgcBPmrjJhp.sLbfTsPgiOfznpGF2JkRQaZhq/eu.xQmCaB9luhK.', 'staff', '+91 98765 43211'),
-(3, 'Priya Sharma (Diagnostic Specialist)', 'priya@vehicleservice.com', '$2a$10$RgcBPmrjJhp.sLbfTsPgiOfznpGF2JkRQaZhq/eu.xQmCaB9luhK.', 'staff', '+91 98765 43212'),
+(1, 'Rajesh Varma (Service Director)', 'rajesh@apexautohub.com', '$2a$10$PI.x1JQky3PnTNZqV9Uxi.1nCSt7zxZWKCFZ4cpnLsYPcgx.NhS4q', 'admin', '+91 98765 43210'),
+(2, 'Vikram Singh (Lead Mechanic)', 'vikram@apexautohub.com', '$2a$10$g4FWpmPx.6jWb6qNUuZVbuXah7toLoGRFqVNgo3XhgXwprP.I5IUC', 'staff', '+91 98765 43211'),
+(3, 'Ananya Iyer (Diagnostic Specialist)', 'ananya@apexautohub.com', '$2a$10$YZ6S9JKBT32kU9qEunAj4OF8jU2/uwlxJyRFfV9O.cqTiM/ar366u', 'staff', '+91 98765 43212'),
 (4, 'Revanth Reddy', 'revanth@vehicleservice.com', '$2a$10$Dri/IARpbO4k9zJHI0iqUuPLWPDbyL6SOWtLspV4vJlIyrfdPyQrm', 'customer', '+91 98765 43213'),
 (5, 'Subhash', 'subhash@vehicleservice.com', '$2a$10$Dri/IARpbO4k9zJHI0iqUuPLWPDbyL6SOWtLspV4vJlIyrfdPyQrm', 'customer', '+91 98765 43214');
 
@@ -125,7 +125,7 @@ INSERT INTO `invoice_items` (`id`, `invoice_id`, `description`, `item_type`, `qu
 -- 12. Insert Notifications
 INSERT INTO `notifications` (`id`, `user_id`, `booking_id`, `channel`, `title`, `message`, `status`, `sent_at`) VALUES
 (1, 4, 1, 'sms', 'Booking Confirmed - VSB-2026-1001', 'Dear Revanth Reddy, your slot for Hyundai Creta (TS 09 EA 4521) is confirmed for today 09:00 AM at Jubilee Hills.', 'delivered', DATE_SUB(NOW(), INTERVAL 4 HOUR)),
-(2, 4, 1, 'email', 'Vehicle Checked-In - Bay 2', 'Your Creta is checked in. Inspection has commenced under Lead Mechanic Suresh Kumar.', 'sent', DATE_SUB(NOW(), INTERVAL 3 HOUR)),
+(2, 4, 1, 'email', 'Vehicle Checked-In - Bay 2', 'Your Creta is checked in. Inspection has commenced under Lead Mechanic Vikram Singh.', 'sent', DATE_SUB(NOW(), INTERVAL 3 HOUR)),
 (3, 4, 1, 'sms', 'Repair Stage Started', 'Vehicle has entered the Repair bay. Estimated completion time is today by 03:00 PM.', 'delivered', DATE_SUB(NOW(), INTERVAL 1 HOUR)),
 (4, 4, 2, 'email', 'Service Completed & Invoice Ready', 'Service on your Honda City is complete! Digital Invoice INV-2026-0891 is ready for viewing.', 'sent', DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (5, 5, 3, 'sms', 'Check-In Confirmed - Tata Nexon EV', 'Subhash, your Nexon EV has reached the inspection bay at Hyderabad Central Hub.', 'delivered', DATE_SUB(NOW(), INTERVAL 1 HOUR));
